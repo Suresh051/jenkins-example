@@ -20,14 +20,10 @@ pipeline {
              
                sh "mvn test"
             }
-        }
-
-
-        stage ('Deployment Stage') {
-       
-            steps {
-             
-                sh "mvn deploy"
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
             }
         }
     }
